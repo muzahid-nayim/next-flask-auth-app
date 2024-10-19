@@ -1,0 +1,50 @@
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+export default function Dashboard() {
+  const router = useRouter();
+
+  const checkAuthentication = async () => {
+    const response = await fetch("http://localhost:5000/protected", {
+      method: "GET",
+      credentials: 'include', // Important: include cookies
+    });
+
+    if (!response.ok) {
+      // If the response is not OK (e.g., 401 Unauthorized), redirect to login
+      router.push("/login");
+    }
+  };
+
+  useEffect(() => {
+    checkAuthentication();
+  }, []); // Run once on mount
+
+  const handleLogout = async () => {
+    const response = await fetch("http://localhost:5000/logout", {
+      method: "POST",
+      credentials: 'include', // Important: include cookies
+    });
+
+    if (response.ok) {
+      alert("Logout successful!");
+      router.push("/login"); // Redirect to login page
+    } else {
+      alert("Logout failed");
+    }
+  };
+
+  return (
+    <div>
+      <h1>Welcome to the Dashboard</h1>
+      <p>You are successfully logged in!</p>
+      <button
+        className="m-5 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
+    </div>
+  );
+}
