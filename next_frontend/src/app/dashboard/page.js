@@ -7,17 +7,14 @@ export default function Dashboard() {
 
 
   const checkAuthentication = async () => {
-	const response = await fetch("http://localhost:5000/dashboard", {
+	const response = await fetch("http://localhost:5000/auth", {
 		method: "GET",
 		credentials: 'include',
 	});
 
 	if (!response.ok) {
 		router.push("/login");
-	} else {
-		const data = await response.json(); // Get the response data
-		alert(data.message); // Show welcome message or other data
-	}
+	} 
 };
 
   useEffect(() => {

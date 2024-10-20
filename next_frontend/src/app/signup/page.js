@@ -1,11 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Signup() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const router = useRouter();
+
+
+	//  checking  the user is authenticated or not
+	const checkAuthentication = async () => {
+		const response = await fetch("http://localhost:5000/auth", {
+			method: "GET",
+			credentials: "include",
+		});
+
+		if (response.ok) router.push("/dashboard");
+	};
+
+	useEffect(() => {
+		checkAuthentication();
+	}, []);
+
+
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

@@ -92,8 +92,8 @@ def login():
 
 
 
-@app.route("/dashboard", methods=["GET"])
-def dashboard():
+@app.route("/auth", methods=["GET"])
+def auth():
     token = request.cookies.get("jwt")  # Get the cookie
 
     if not token:
@@ -106,6 +106,7 @@ def dashboard():
         return jsonify({"message": "Token is invalid!"}), 403
 
     return jsonify({"message": f"Welcome, user {current_user.email}!"})
+
 
 
 @app.route("/logout", methods=["POST"])
