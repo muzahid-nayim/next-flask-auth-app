@@ -85,7 +85,7 @@ def login():
 
         # Set cookie
         response = make_response(jsonify({"message": "Login successful!"}))
-        response.set_cookie("jwt", token, httponly=True, secure=False)
+        response.set_cookie("auth_token", token, httponly=True, secure=False)
         return response
     else:
         return jsonify({"message": "Invalid email or password"}), 401
@@ -94,7 +94,7 @@ def login():
 
 @app.route("/auth", methods=["GET"])
 def auth():
-    token = request.cookies.get("jwt")  # Get the cookie
+    token = request.cookies.get("auth_token")  # Get the cookie
 
     if not token:
         return jsonify({"message": "Token is missing!"}), 403
