@@ -5,26 +5,29 @@ import { useRouter } from "next/navigation";
 export default function Dashboard() {
   const router = useRouter();
 
-  const checkAuthentication = async () => {
-    const response = await fetch("http://localhost:5000/protected", {
-      method: "GET",
-      credentials: 'include', // Important: include cookies
-    });
 
-    if (!response.ok) {
-      // If the response is not OK (e.g., 401 Unauthorized), redirect to login
-      router.push("/login");
-    }
-  };
+  const checkAuthentication = async () => {
+	const response = await fetch("http://localhost:5000/dashboard", {
+		method: "GET",
+		credentials: 'include',
+	});
+
+	if (!response.ok) {
+		router.push("/login");
+	} else {
+		const data = await response.json(); // Get the response data
+		alert(data.message); // Show welcome message or other data
+	}
+};
 
   useEffect(() => {
     checkAuthentication();
-  }, []); // Run once on mount
+  }, []); 
 
   const handleLogout = async () => {
     const response = await fetch("http://localhost:5000/logout", {
       method: "POST",
-      credentials: 'include', // Important: include cookies
+      credentials: 'include', //  include cookies
     });
 
     if (response.ok) {

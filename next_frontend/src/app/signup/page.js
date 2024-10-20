@@ -16,7 +16,7 @@ export default function Signup() {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({ email, password }),
-			credentials: "include", // Important: include cookies
+			credentials: "include", //  include cookies
 		});
 
 		if (response.ok) {

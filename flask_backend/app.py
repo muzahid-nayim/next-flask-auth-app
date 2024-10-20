@@ -92,8 +92,8 @@ def login():
 
 
 
-@app.route("/protected", methods=["GET"])
-def protected():
+@app.route("/dashboard", methods=["GET"])
+def dashboard():
     token = request.cookies.get("jwt")  # Get the cookie
 
     if not token:

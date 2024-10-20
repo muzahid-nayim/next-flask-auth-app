@@ -16,11 +16,10 @@ export default function Login() {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({ email, password }),
-			credentials: "include", // Important: include cookies
+			credentials: "include", //  include cookies
 		});
 
 		if (response.ok) {
-			// No need to use localStorage for session management
 			router.push("/dashboard");
 		} else {
 			alert("Invalid email or password");
